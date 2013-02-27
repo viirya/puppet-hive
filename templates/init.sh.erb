@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+export HADOOP_HOME="<%= scope.lookupvar('hive::params::hadoop_base') %>/hadoop"
+
+$HADOOP_HOME/bin/hadoop fs -mkdir /tmp
+$HADOOP_HOME/bin/hadoop fs -mkdir -p /user/<%= scope.lookupvar('hive::params::hive_user') %>/warehouse
+$HADOOP_HOME/bin/hadoop fs -chmod g+w /tmp
+$HADOOP_HOME/bin/hadoop fs -chmod g+w /user/<%= scope.lookupvar('hive::params::hive_user') %>/warehouse
+

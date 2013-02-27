@@ -1,0 +1,30 @@
+{
+  "description": "This module deploys Apache Hive.",
+  "summary": "Install Apache Hive.",
+  "source": "UNKNOWN",
+  "version": "0.0.1",
+  "license": "MIT License",
+  "types": [
+
+  ],
+  "dependencies": [
+    {
+      "version_requirement": "0.0.1",
+      "name": "viirya/java"
+    }
+  ],
+  "checksums": {
+    "tests/init.pp": "dfba53b6182337ac263cffd16baedea7",
+    "Modulefile": "2003d09050ff67dd3b944c950da288aa",
+    "manifests/params.pp": "e1eae434da81c1a59639661badb25201",
+    "README": "9c95aee92a1fbd73bfc2bea41ae3f1a0",
+    "templates/init.sh.erb": "417137f5fac62540de21483128713e02",
+    "manifests/init.pp": "e9cb584526a42bc32177f116d4d40fec",
+    "templates/hive-site.xml.erb": "445ce2f17264cdbd4684c5a1d93d23bc",
+    "spec/spec_helper.rb": "a55d1e6483344f8ec6963fcb2c220372",
+    "manifests/cluster.pp": "c190f084e212306b731e2a125ed5fbf8"
+  },
+  "name": "viirya-hive",
+  "project_page": "https://github.com/viirya/puppet-hive",
+  "author": "Liang-Chi Hsieh"
+}

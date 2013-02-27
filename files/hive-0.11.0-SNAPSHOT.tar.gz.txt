@@ -1,0 +1,3 @@
+
+Please put Apache Hive tarball such as hive-0.11.0-SNAPSHOT.tar.gz under files/.
+

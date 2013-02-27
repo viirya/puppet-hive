@@ -1,0 +1,23 @@
+
+Puppet module for deploying Apache Hive
+
+This module deploys Apache Hive. It is tested with Apache Hive trunk (built against Hadoop 2.0.3 alpha and packaged as tarball hive-0.11.0-SNAPSHOT.tar.gz) and Apache Hadoop 2.0.3 alpha release (deployed using puppet module viirya/hadoop) under puppet agent/master environment. 
+
+Usage
+
+After installing this module in puppet master node, in site.pp, defining:
+
+node 'your hive node' {
+    include java
+    include hive::cluster
+}
+
+Before deploying this module, please install and setup Hadoop cluster on machines. This module assumes that ssh connection  and hadoop users are all set up.
+
+Downloading or building Hive tarball and putting under files/.
+
+Please modify parameters such as 'version', 'metastore_server', 'metastore_host', 'metastore_password' in manifests/params.pp.
+
+You also need to setup a mysql server as metastore host.
+
+
