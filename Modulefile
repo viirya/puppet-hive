@@ -1,7 +1,7 @@
 name    'viirya-hive'
-version '0.0.1'
+version '0.0.4'
 author 'Liang-Chi Hsieh'
-dependency 'viirya/java', '0.0.1'
+dependency 'viirya/java', '0.0.4'
 summary 'Install Apache Hive.'
 description "This module deploys Apache Hive."
 project_page 'https://github.com/viirya/puppet-hive'
