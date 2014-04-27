@@ -71,8 +71,7 @@ class hive {
         cwd => "${hive::params::hive_base}",
         creates => "${hive::params::hive_base}/hive-${hive::params::file}",
         alias => "untar-hive",
-        refreshonly => true,
-        subscribe => File["hive-source-tgz"],
+        onlyif => "test 0 -eq $(ls -al ${hive::params::hive_base}/hive-${hive::params::file} | grep -c bin)",
         user => "${hive::params::hive_user}",
         before => [ File["hive-symlink"], File["hive-app-dir"]],
         path    => ["/bin", "/usr/bin", "/usr/sbin"],
@@ -127,7 +126,6 @@ class hive {
     exec { "set hive_home":
         command => "echo 'export HIVE_HOME=${hive::params::hive_base}/hive-${hive::params::file}' >> /etc/profile.d/hadoop.sh",
         alias => "set-hivehome",
-        #creates => "${hive::params::hive_base}/hive/lib/libmysql-java.jar",
         user => "root",
         require => [File["hive-app-dir"]],
         path    => ["/bin", "/usr/bin", "/usr/sbin"],
@@ -137,32 +135,11 @@ class hive {
     exec { "set hive path":
         command => "echo 'export PATH=\$PATH:${hive::params::hive_base}/hive-${hive::params::file}/bin' >> /etc/profile.d/hadoop.sh",
         alias => "set-hivepath",
-        #creates => "${hive::params::hive_base}/hive/lib/libmysql-java.jar",
         user => "root",
         before => Exec["set-hivehome"],
         path    => ["/bin", "/usr/bin", "/usr/sbin"],
         onlyif => "test 0 -eq $(grep -c '${hive::params::hive_base}/hive-${hive::params::file}/bin' /etc/profile.d/hadoop.sh)",
     }
-
-    #exec { "set hive_home":
-        #command => "echo 'export HIVE_HOME=${hive::params::hive_base}/hive-${hive::params::file}' >> ${hive::params::hive_user_path}/.bashrc",
-        #alias => "set-hivehome",
-        ##creates => "${hive::params::hive_base}/hive/lib/libmysql-java.jar",
-        #user => "${hive::params::hive_user}",
-        #require => [File["hive-app-dir"]],
-        #path    => ["/bin", "/usr/bin", "/usr/sbin"],
-        #onlyif => "test 0 -eq $(grep -c HIVE_HOME ${hive::params::hive_user_path}/.bashrc)",
-    #}
-  
-    #exec { "set hive path":
-        #command => "echo 'export PATH=\$PATH:${hive::params::hive_base}/hive-${hive::params::file}/bin' >> ${hive::params::hive_user_path}/.bashrc",
-        # alias => "set-hivepath",
-        # #creates => "${hive::params::hive_base}/hive/lib/libmysql-java.jar",
-        # user => "${hive::params::hive_user}",
-        # before => Exec["set-hivehome"],
-        # path    => ["/bin", "/usr/bin", "/usr/sbin"],
-        # onlyif => "test 0 -eq $(grep -c '${hive::params::hive_base}/hive-${hive::params::file}/bin' ${hive::params::hive_user_path}/.bashrc)",
-    #}
 
     if $hive::params::embeded != "yes" { 
         package { "${hive::params::mysql_connector_java}":
