@@ -55,7 +55,11 @@ class hive::params {
         redhat => "/usr/share/java/mysql-connector-java.jar",
         centos => "/usr/share/java/mysql-connector-java.jar",
     }
-
+ 
+    $hive_master = $::hostname ? {
+        default         => "localhost",
+    }
+ 
     $metastore_server = $::hostname ? {
         default         => "localhost",
     }
@@ -70,6 +74,18 @@ class hive::params {
 
     $embeded = $::hostname ? {
         default         => "yes",
+    }
+
+    $kerberos_mode = $::hostname ? {
+        default         => "yes",
+    }
+
+    $keytab_path = $::hostname ? {
+        default            => "/etc/security/keytab",
+    }
+
+    $kerberos_realm = $::hostname ? {
+        default            => "OPENSTACKLOCAL",
     }
  
 }

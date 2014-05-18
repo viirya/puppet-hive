@@ -83,4 +83,43 @@
 
 <% end %>
 
+<% if scope.lookupvar('hive::params::kerberos_mode') == "yes" %>
+
+<property>    
+        <name>hive.metastore.sasl.enabled</name>    
+        <value>true</value>    
+        <description>If true, the metastore thrift interface will be secured with
+        SASL.     
+        Clients must authenticate with Kerberos.</description>  
+</property>    
+<property>    
+        <name>hive.metastore.kerberos.keytab.file</name>    
+        <value><%= scope.lookupvar('hive::params::keytab_path') %>/hive.service.keytab</value>    
+        <description>The path to the Kerberos Keytab file containing the
+        metastore thrift server's service principal.</description>  
+</property>   
+<property>    
+        <name>hive.metastore.kerberos.principal</name>    
+        <value>hive/_HOST@<%= scope.lookupvar('hive::params::kerberos_realm') %></value>    
+        <description>The service principal for the metastore thrift server. The special string _HOST will be replaced automatically with the correct  hostname.</description>  
+</property>
+
+<property>
+   <name>hive.server2.authentication</name>
+    <value>KERBEROS</value>
+    <description>Authentication type </description>
+</property> 
+<property>
+   <name>hive.server2.authentication.kerberos.principal</name>
+    <value>hive/_HOST@<%= scope.lookupvar('hive::params::kerberos_realm') %></value>
+    <description>The service principal for the HiveServer2. If _HOST is used as the hostname portion, it will be replaced with the actual hostname of the running instance.</description>
+</property>
+<property>
+    <name>hive.server2.authentication.kerberos.keytab</name>
+    <value><%= scope.lookupvar('hive::params::keytab_path') %>/hive.service.keytab</value>
+    <description>The keytab for the HiveServer2 service principal</description>
+</property>
+
+<% end %>
+
 </configuration>
