@@ -56,16 +56,16 @@ class hive::params {
         centos => "/usr/share/java/mysql-connector-java.jar",
     }
  
-    $hive_master = $::hostname ? {
-        default         => "localhost",
+    $hive_masters = $::hostname ? {
+        default         => ["test1.openstacklocal"],
     }
  
     $metastore_server = $::hostname ? {
-        default         => "localhost",
+        default         => "test1.openstacklocal",
     }
 
     $metastore_host = $::hostname ? {
-        default         => "metastore.database",
+        default         => "localhost",
     }
 
     $metastore_password = $::hostname ? {
@@ -73,7 +73,7 @@ class hive::params {
     }
 
     $embeded = $::hostname ? {
-        default         => "yes",
+        default         => "no",
     }
 
     $kerberos_mode = $::hostname ? {
